@@ -60,6 +60,7 @@ export default ({ name }) => {
         react: {
           get: () => Promise.resolve(() => require("react")),
           loaded: true,
+          version: [99, 99, 99],
         },
       },
       global.__webpack_require__ ? global.__webpack_require__.o : {}
@@ -75,7 +76,7 @@ export default ({ name }) => {
 
   return (
     <React.Suspense fallback={<div>Loading caption</div>}>
-      <Component  />
+      <Component name={name} />
     </React.Suspense>
   );
 };

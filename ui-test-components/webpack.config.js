@@ -13,7 +13,10 @@ module.exports = (_, args) => ({
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
-
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM",
+  },
   devServer: {
     port: 8080,
   },
@@ -44,6 +47,7 @@ module.exports = (_, args) => ({
   plugins: [
     new ModuleFederationPlugin({
       name: "ui",
+      library: { type: "var", name: "ui" },
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {

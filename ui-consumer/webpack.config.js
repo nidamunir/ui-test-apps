@@ -13,7 +13,10 @@ module.exports = (_, args) => ({
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
-
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM",
+  },
   devServer: {
     port: 8081,
   },
