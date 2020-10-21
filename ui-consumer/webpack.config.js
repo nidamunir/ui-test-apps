@@ -46,7 +46,8 @@ module.exports = (_, args) => ({
       name: "starter",
       filename: "remoteEntry.js",
       remotes: {
-        ui: "ui@https://ui-test-components.vercel.app/remoteEntry.js",
+        // ui: "ui@https://ui-test-components.vercel.app/remoteEntry.js",
+        ui: "ui@http://localhost:8080/remoteEntry.js",
       },
       exposes: {},
       shared: {
