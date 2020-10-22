@@ -4,20 +4,14 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const deps = require("./package.json").dependencies;
 module.exports = (_, args) => ({
   output: {
-    publicPath:
-      args.mode === "development"
-        ? "http://localhost:8081/"
-        : "https://ui-consumer.vercel.app/",
+    publicPath: "http://localhost:8081/",
   },
-
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
-
   devServer: {
     port: 8081,
   },
-
   module: {
     rules: [
       {
@@ -46,7 +40,6 @@ module.exports = (_, args) => ({
       name: "starter",
       filename: "remoteEntry.js",
       remotes: {
-        // ui: "ui@https://ui-test-components.vercel.app/remoteEntry.js",
         ui: "ui@http://localhost:8080/remoteEntry.js",
       },
       exposes: {},
@@ -56,10 +49,10 @@ module.exports = (_, args) => ({
           singleton: true,
           requiredVersion: deps.react,
         },
-        "react-dom": {
-          singleton: true,
-          requiredVersion: deps["react-dom"],
-        },
+        // "react-dom": {
+        //   singleton: true,
+        //   requiredVersion: deps["react-dom"],
+        // },
       },
     }),
     new HtmlWebPackPlugin({

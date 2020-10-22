@@ -1,18 +1,16 @@
+import { lazy, Suspense } from "react";
+import { dependencies } from "../package.json";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import RemoteAppBar from "./RemoteAppBar";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <script src="http://localhost:8080/remoteEntry.js" />
       </Head>
-
-      <main className={styles.main}>
-        <RemoteAppBar />
-      </main>
+      index
+      <RemoteAppBar />
     </div>
   );
 }

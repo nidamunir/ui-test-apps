@@ -1,81 +1,35 @@
-import React from "react";
+import { lazy, Suspense } from "react";
+import { dependencies } from "../package.json";
 
-const useDynamicScript = (url) => {
-  const [ready, setReady] = React.useState(false);
-  const [failed, setFailed] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!url) {
-      return;
-    }
-
-    const element = document.createElement("script");
-    element.src = url;
-    element.type = "text/javascript";
-    element.async = true;
-
-    setReady(false);
-    setFailed(false);
-
-    element.onload = () => {
-      console.log(`Dynamic Script Loaded: ${url}`);
-      setReady(true);
-    };
-
-    element.onerror = () => {
-      console.error(`Dynamic Script Error: ${url}`);
-      setReady(false);
-      setFailed(true);
-    };
-
-    document.head.appendChild(element);
-
-    return () => {
-      console.log(`Dynamic Script Removed: ${url}`);
-      document.head.removeChild(element);
-    };
-  }, [url]);
-
-  return {
-    ready,
-    failed,
-  };
-};
-
-export default ({ name }) => {
-  const { ready, failed } = useDynamicScript(
-    "http://localhost:8080/remoteEntry.js"
-  );
-
-  if (!ready || failed || !global) {
+const RemoteComponent = ({ scope, module, ...props }) => {
+  if (!global[scope]) {
+    console.log("returning null");
     return null;
   }
 
-  const scope = "ui";
-  const module = "./TopAppBar";
-
-  global[scope].init(
-    Object.assign(
-      {
-        react: {
-          get: () => Promise.resolve(() => require("react")),
-          loaded: true,
-        },
+  global[scope].init({
+    react: {
+      [dependencies.react]: {
+        get: () => Promise.resolve().then(() => () => require("react")),
       },
-      global.__webpack_require__ ? global.__webpack_require__.o : {}
-    )
-  );
+    },
+  });
 
-  const Component = React.lazy(() =>
-    global[scope].get(module).then((factory) => {
-      const Module = factory();
-      return Module;
-    })
+  const Component = lazy(() =>
+    global[scope].get(module).then((factory) => factory())
   );
 
   return (
-    <React.Suspense fallback={<div>Loading caption</div>}>
-      <Component  />
-    </React.Suspense>
+    <Suspense fallback={null}>
+      <Component {...props} />
+    </Suspense>
   );
 };
+
+export default function Home() {
+  return (
+    // Error while loading alert dialog, cannnot mount unmounted component
+      <RemoteComponent scope="ui" module="./CircularIndeterminate" />
+    
+  );
+}
