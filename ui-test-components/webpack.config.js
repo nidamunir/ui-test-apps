@@ -44,9 +44,6 @@ module.exports = (_, args) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./TopAppBar": "./src/components/TopAppBar",
-        "./Button": "./src/components/Button",
-        "./AlertDialog": "./src/components/AlertDialog",
         "./Card": "../next-ui-consumer/components/Card",
         "./CircularIndeterminate":
           "../next-ui-consumer/components/CircularIndeterminate",
