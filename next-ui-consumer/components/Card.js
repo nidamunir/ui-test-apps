@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function Card() {
-  const [id, setId] = useState(1);
+  const [id, setId] = useState(12);
 
   useEffect(() => {
     const myClock = setInterval(() => {
@@ -9,7 +9,7 @@ export default function Card() {
     }, 1500);
 
     return () => clearInterval(myClock);
-  });
+  }, []);
 
   return (
     <img
@@ -18,8 +18,8 @@ export default function Card() {
       style={{
         padding: "1em",
         border: "10px solid green",
-        width: 500,
-        height: 280,
+        width: 200,
+        height: 180,
       }}
     />
   );
