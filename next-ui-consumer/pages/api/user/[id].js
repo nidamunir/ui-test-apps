@@ -1,27 +1,30 @@
+import Cors from "cors";
+import runMiddleware from "../../../utils/api/runMiddleware";
+// Initializing the cors middleware
+const cors = Cors({
+  methods: ["GET", "HEAD"],
+});
+
 const users = [
   { id: 1, name: "user 1" },
   { id: 2, name: "user 2" },
   { id: 3, name: "user 3" },
 ];
 
-export default function userHandler(req, res) {
+export default async function userHandler(req, res) {
+  //   Run the middleware
+  await runMiddleware(req, res, cors);
   const {
-    query: { id, name },
+    query: { id },
     method,
   } = req;
-  console.log("req:", req);
 
   switch (method) {
     case "GET":
-      // Get data from your database
       res.status(200).json({ id, name: `User ${id}` });
       break;
-    case "POST":
-      // Update or create data in your database
-      res.status(200).json([...users, { id, name: name || `User ${id}` }]);
-      break;
     default:
-      res.setHeader("Allow", ["GET", "POST"]);
-      res.status(405).end(`Method ${method} Not Allowed`);
+    // res.setHeader("Allow", ["GET", "POST"]);
+    // res.status(405).end(`Method ${method} Not Allowed`);
   }
 }

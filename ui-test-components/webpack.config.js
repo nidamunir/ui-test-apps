@@ -47,7 +47,7 @@ module.exports = (_, args) => ({
         "./Card": "../next-ui-consumer/components/Card",
         "./CircularIndeterminate":
           "../next-ui-consumer/components/CircularIndeterminate",
-        "./Test": "../next-ui-consumer/components/Test",
+        "./useApi": "../next-ui-consumer/components/useApi",
       },
       shared: {
         ...deps,
