@@ -26,6 +26,15 @@ const App = () => {
         useApi("users",config).then((users) => setUsers(users))
     }
 
+    const handleAddFruit = () => {
+        const config = {
+            method: "POST",
+            body: JSON.stringify({id:4,name:"new fruit"}),
+        }
+        // useApi("addFruit",config).then((users) => setUsers(users))
+    }
+
+
     return (
         <div>
             <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
@@ -38,6 +47,8 @@ const App = () => {
                 {users.map((user) => <span key={user.id}>{user.name}, </span>)}
                 </ul>}
                 <button onClick={handleAddUser}>Add new User</button>
+                <button onClick={handleAddFruit}>Add new Fruit</button>
+
                 {apps && <ul>
                     Fetched <strong>pages/api/apps === </strong>
                 {apps.map((app) => <span key={app.id}>{app.name}, </span>)}
