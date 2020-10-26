@@ -44,10 +44,9 @@ module.exports = (_, args) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./Card": "../next-ui-consumer/components/Card",
-        "./CircularIndeterminate":
-          "../next-ui-consumer/components/CircularIndeterminate",
-        "./useApi": "../next-ui-consumer/components/useApi",
+        "./Card": "../components/Card",
+        "./CircularIndeterminate": "../components/CircularIndeterminate",
+        "./useApi": "../components/useApi",
       },
       shared: {
         ...deps,
