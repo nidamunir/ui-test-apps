@@ -13,7 +13,7 @@ module.exports = (_, args) => ({
       import: "./src/Poll/index.ts",
       filename: "[name].js",
     },
-    // main: "./src/index.ts",
+    main: "./src/index.ts",
   },
   // output: {
   //   path: path.resolve(__dirname, "dist"),

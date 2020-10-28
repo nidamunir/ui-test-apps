@@ -4,9 +4,7 @@ import ReactDOM from "react-dom";
 import RemoteCard from 'ui/Card'
 import CircularIndeterminate from 'ui/CircularIndeterminate'
 import useApi from 'ui/useApi'
-import MyTrivia from './Trivia/MyTrivia'
-import MyPoll from './Poll/MyPoll'
-
+// import Poll from "poll/Poll"// gives error
 import "./index.css";
 
 const App = () => {
@@ -15,7 +13,9 @@ const App = () => {
     const [user, setUser] = useState(null);  
 
     useEffect(() => {
-      
+        useApi("user/231").then((user) => setUser(user))
+        useApi("users").then((users) => setUsers(users))
+        useApi("apps").then((apps) => setApps(apps))
     }, [])
 
     const handleAddUser = () => {
@@ -37,20 +37,17 @@ const App = () => {
 
     return (
         <div>
-            <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
+            <div style={{display:"flex", width:"500px", flexDirection:"column"}}>
                 <p>
                 Hi there, I'm the consumer app.
                 </p>
-                {/* <MyTrivia /> */}
-                <MyPoll />
-                {/* <CircularIndeterminate /> */}
                 {user && <p>Fetched <strong>pages/api/users/231 </strong>{user.name}</p>}
                 {users && <ul>
                     Fetched <strong>pages/api/users === </strong>
                 {users.map((user) => <span key={user.id}>{user.name}, </span>)}
                 </ul>}
-                <button onClick={handleAddUser}>Add new User</button>
-                <button onClick={handleAddFruit}>Add new Fruit</button>
+                {/* <button onClick={handleAddUser}>Add new User</button>
+                <button onClick={handleAddFruit}>Add new Fruit</button> */}
 
                 {apps && <ul>
                     Fetched <strong>pages/api/apps === </strong>
