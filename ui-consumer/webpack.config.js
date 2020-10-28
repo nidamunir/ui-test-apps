@@ -1,11 +1,25 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+// const path = require("path");
+// const deps = require("./package.json").dependencies;
 
-const deps = require("./package.json").dependencies;
 module.exports = (_, args) => ({
-  output: {
-    publicPath: "http://localhost:8081/",
+  entry: {
+    trivia: {
+      import: "./src/Trivia/index.ts",
+      filename: "[name].js",
+    },
+    poll: {
+      import: "./src/Poll/index.ts",
+      filename: "[name].js",
+    },
+    // main: "./src/index.ts",
   },
+  // output: {
+  //   path: path.resolve(__dirname, "dist"),
+  //   filename: "[name].js",
+  //   // publicPath: "http://localhost:8081/",
+  // },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
@@ -37,22 +51,11 @@ module.exports = (_, args) => ({
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "starter",
-      filename: "remoteEntry.js",
+      name: "consumer",
+      filename: "consumerEntry.js",
       remotes: {
-        ui: "ui@http://localhost:8080/remoteEntry.js",
-      },
-      exposes: {},
-      shared: {
-        ...deps,
-        react: {
-          singleton: true,
-          requiredVersion: deps.react,
-        },
-        // "react-dom": {
-        //   singleton: true,
-        //   requiredVersion: deps["react-dom"],
-        // },
+        trivia: "trivia@http://localhost:8080/triviaRemoteEntry.js",
+        poll: "poll@http://localhost:8080/pollRemoteEntry.js",
       },
     }),
     new HtmlWebPackPlugin({

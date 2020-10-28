@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import RemoteCard from 'ui/Card'
 import CircularIndeterminate from 'ui/CircularIndeterminate'
 import useApi from 'ui/useApi'
+import MyTrivia from './Trivia/MyTrivia'
+import MyPoll from './Poll/MyPoll'
 
 import "./index.css";
 
@@ -13,9 +15,7 @@ const App = () => {
     const [user, setUser] = useState(null);  
 
     useEffect(() => {
-        useApi("user/231").then((user) => setUser(user))
-        useApi("users").then((users) => setUsers(users))
-        useApi("apps").then((apps) => setApps(apps))
+      
     }, [])
 
     const handleAddUser = () => {
@@ -41,6 +41,8 @@ const App = () => {
                 <p>
                 Hi there, I'm the consumer app.
                 </p>
+                {/* <MyTrivia /> */}
+                <MyPoll />
                 {user && <p>Fetched <strong>pages/api/users/231 </strong>{user.name}</p>}
                 {users && <ul>
                     Fetched <strong>pages/api/users === </strong>
