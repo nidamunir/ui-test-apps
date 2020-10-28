@@ -1,7 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 // const path = require("path");
-// const deps = require("./package.json").dependencies;
+const deps = require("./package.json").dependencies;
 
 module.exports = (_, args) => ({
   entry: {
@@ -55,7 +55,15 @@ module.exports = (_, args) => ({
       filename: "consumerEntry.js",
       remotes: {
         trivia: "trivia@http://localhost:8080/triviaRemoteEntry.js",
+        ui: "ui@http://localhost:8080/remoteEntry.js",
         poll: "poll@http://localhost:8080/pollRemoteEntry.js",
+      },
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
+        },
       },
     }),
     new HtmlWebPackPlugin({
