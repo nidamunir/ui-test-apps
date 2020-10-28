@@ -43,6 +43,7 @@ const App = () => {
                 </p>
                 {/* <MyTrivia /> */}
                 <MyPoll />
+                {/* <CircularIndeterminate /> */}
                 {user && <p>Fetched <strong>pages/api/users/231 </strong>{user.name}</p>}
                 {users && <ul>
                     Fetched <strong>pages/api/users === </strong>
