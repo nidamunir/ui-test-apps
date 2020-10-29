@@ -45,42 +45,8 @@ module.exports = (_, args) => ({
       remotes: {},
       exposes: {
         "./Card": "../components/Card",
-        "./CircularIndeterminate": "../components/CircularIndeterminate",
+        "./Loader": "../components/Loader",
         "./useApi": "../components/useApi",
-      },
-      shared: {
-        ...deps,
-        react: {
-          singleton: true,
-          requiredVersion: deps.react,
-        },
-        // "react-dom": {
-        //   singleton: true,
-        //   requiredVersion: deps["react-dom"],
-        // },
-      },
-    }),
-    new ModuleFederationPlugin({
-      name: "trivia",
-      filename: "triviaRemoteEntry.js",
-      remotes: {},
-      exposes: {
-        "./Trivia": "../components/Trivia",
-      },
-      shared: {
-        ...deps,
-        react: {
-          singleton: true,
-          requiredVersion: deps.react,
-        },
-      },
-    }),
-    new ModuleFederationPlugin({
-      name: "poll",
-      filename: "pollRemoteEntry.js",
-      remotes: {},
-      exposes: {
-        "./Poll": "../components/Poll",
       },
       shared: {
         ...deps,

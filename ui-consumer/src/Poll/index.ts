@@ -1,1 +1,1 @@
-import("./MyPoll");
+import("./Poll");

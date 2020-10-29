@@ -18,7 +18,7 @@ module.exports = (_, args) => ({
   // output: {
   //   path: path.resolve(__dirname, "dist"),
   //   filename: "[name].js",
-  //   // publicPath: "http://localhost:8081/",
+  //   publicPath: "http://localhost:8081/",
   // },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
@@ -54,9 +54,7 @@ module.exports = (_, args) => ({
       name: "consumer",
       filename: "consumerEntry.js",
       remotes: {
-        trivia: "trivia@http://localhost:8080/triviaRemoteEntry.js",
         ui: "ui@http://localhost:8080/remoteEntry.js",
-        poll: "poll@http://localhost:8080/pollRemoteEntry.js",
       },
       shared: {
         ...deps,

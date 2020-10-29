@@ -1,1 +1,1 @@
-import("./MyTrivia");
+import("./Trivia");
